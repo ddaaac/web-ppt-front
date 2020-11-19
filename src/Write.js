@@ -1,9 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import styled from "styled-components";
-import "codemirror/lib/codemirror.css";
 import "codemirror/theme/darcula.css";
 import CodeMirror from "codemirror";
 import "codemirror/mode/markdown/markdown";
+import CodeMirrorStyle from "./CodeMirrorStyle";
 
 
 const Container = styled.div`
@@ -45,6 +45,7 @@ const Write = ({onChange}) => {
 
   return (
     <Container>
+      <CodeMirrorStyle/>
       <TextArea ref={textArea}/>
     </Container>
   );
