@@ -3,7 +3,6 @@ import Write from "./Write";
 import Print from "./Print";
 import styled from "styled-components";
 import {useParams} from "react-router-dom";
-import axios from "axios";
 import {getSlide} from "./api";
 
 const HContainer = styled.div`
@@ -15,6 +14,7 @@ const HContainer = styled.div`
   font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
 `
 
+
 const All = () => {
   const [markdown, setMarkDown] = useState(`---
 title:
@@ -22,11 +22,13 @@ subtitle:
 author:
 presentedAt:
 ---`)
+  const [initial, setInitial] = useState(true)
   const {id} = useParams()
 
   useEffect(() => {
     const getSlideAsync = async () => {
       setMarkDown(await getSlide(id))
+      setInitial(false)
     }
     if (id) {
       getSlideAsync()
@@ -35,7 +37,7 @@ presentedAt:
 
   return (
     <HContainer>
-      <Write source={markdown} onChange={setMarkDown}/>
+      <Write source={markdown} onChange={setMarkDown} initial={initial}/>
       <Print source={markdown}/>
     </HContainer>
   )

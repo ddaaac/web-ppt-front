@@ -6,10 +6,10 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/:id">
+        <Route path="/slide/:id">
           <All/>
         </Route>
-        <Route path="/">
+        <Route path="/slide">
           <All/>
         </Route>
       </Switch>

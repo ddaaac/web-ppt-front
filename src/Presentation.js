@@ -3,6 +3,9 @@ import styled, {createGlobalStyle} from "styled-components";
 import fscreen from "fscreen";
 import Markdown from "./Markdown";
 import {FullScreenStyle} from "./FullScreenStyle";
+import {useParams, useHistory} from "react-router-dom";
+import {createSlide, updateSlide} from "./api";
+import {parse} from "./parse"
 
 const Keys = {
   ARROW_RIGHT: "ArrowRight",
@@ -129,9 +132,30 @@ export const FullScreenButton = styled.button`
   }
 `;
 
+export const SaveButton = styled.button`
+  background-image: url("/assets/icons/save.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  border: none;
+  position: absolute;
+  top: 30px;
+  right: 110px;
+  z-index: 3;
+  cursor: pointer;
+  
+  &:focus {
+    outline: none;
+  }
+`;
+
 const Presentation = ({source}) => {
   const [index, setIndex] = useState(0);
   const [showCursor, setShowCursor] = useState(false);
+  const {id} = useParams();
+  const history = useHistory()
 
   useEffect(() => {
     if (showCursor) {
@@ -144,7 +168,7 @@ const Presentation = ({source}) => {
   const slideReference = useRef(null);
 
   const contents = useMemo(() => (
-    source.content.split(/^---$/m)
+    parse(source).content.split(/^---$/m)
       .filter((slideContent) => slideContent.trim())
   ), [source]);
 
@@ -180,6 +204,16 @@ const Presentation = ({source}) => {
     slideExists(index - 1) && setIndex(index - 1);
   };
 
+  const save = async (markdown) => {
+    console.log(id, markdown)
+    if (id) {
+      updateSlide(id, markdown)
+    } else {
+      const id = await createSlide(markdown)
+      history.push(`${id}`);
+    }
+  }
+
   return (
     <>
       <FullScreenStyle/>
@@ -194,6 +228,7 @@ const Presentation = ({source}) => {
         <Markdown contents={{content: contents[index]}}/>
       </FullScreenBlock>
       <FullScreenButton onClick={toggleFullScreen}/>
+      <SaveButton onClick={() => save(source)}/>
     </>
   );
 };

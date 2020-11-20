@@ -5,7 +5,6 @@ import CodeMirror from "codemirror";
 import "codemirror/mode/markdown/markdown";
 import CodeMirrorStyle from "./CodeMirrorStyle";
 import Presentation from "./Presentation";
-import {parse} from "./parse"
 
 const Container = styled.div`
   position: relative;
@@ -18,7 +17,7 @@ const TextArea = styled.textarea`
   display: none;
 `;
 
-const Write = ({source, onChange}) => {
+const Write = ({source, onChange, initial}) => {
   const textArea = useRef(null);
   const [_, setCodeMirror] = useState();
 
@@ -39,17 +38,16 @@ const Write = ({source, onChange}) => {
     });
 
     setCodeMirror(codeMirror);
-
     return () => {
       codeMirror.toTextArea();
     };
-  }, [source])
+  }, [initial])
 
   return (
     <Container>
       <CodeMirrorStyle/>
       <TextArea ref={textArea}/>
-      <Presentation source={parse(source)}/>
+      <Presentation source={source}/>
     </Container>
   );
 }
