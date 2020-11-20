@@ -1,26 +1,19 @@
-import styled from "styled-components"
-import React, {useState} from "react";
-import Write from "./Write";
-import Print from "./Print";
-
-const HContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100vh;
-  font-weight: 400;
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
-`
+import React from "react";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import All from "./All";
 
 function App() {
-  const [markdown, setMarkDown] = useState("")
   return (
-    <div>
-      <HContainer>
-        <Write source={markdown} onChange={setMarkDown}/>
-        <Print source={markdown}/>
-      </HContainer>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/:id">
+          <All/>
+        </Route>
+        <Route path="/">
+          <All/>
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 

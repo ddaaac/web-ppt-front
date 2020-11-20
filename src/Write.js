@@ -31,7 +31,7 @@ const Write = ({source, onChange}) => {
         lineNumbers: true,
       }
     );
-
+    codeMirror.getDoc().setValue(source)
     codeMirror.setSize("100%", "100vh")
 
     codeMirror.on("change", (editor) => {
@@ -43,7 +43,7 @@ const Write = ({source, onChange}) => {
     return () => {
       codeMirror.toTextArea();
     };
-  }, [])
+  }, [source])
 
   return (
     <Container>
