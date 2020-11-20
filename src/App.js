@@ -14,11 +14,10 @@ const HContainer = styled.div`
 
 function App() {
   const [markdown, setMarkDown] = useState("")
-
   return (
     <div>
       <HContainer>
-        <Write onChange={setMarkDown}/>
+        <Write source={markdown} onChange={setMarkDown}/>
         <Print source={markdown}/>
       </HContainer>
     </div>

@@ -1,25 +1,31 @@
 import React from 'react';
 import ReactMarkdown from "react-markdown";
-import {parse} from "./parse"
+import styled from "styled-components";
 
-const Markdown = ({source}) => {
-  const {content} = parse(source);
+const Container = styled.div`
+  justify-content: center;
+  padding: 40px;
+`
 
-  const blocks = content.split(/(^---$)/m)
+const Markdown = ({contents}) => {
+  if (!contents || !("content" in contents) || !contents.content) {
+    return null
+  }
+  const blocks = contents.content.split(/(^---$)/m)
     .flatMap(slide => slide.split(/(^```[a-z]*\n[\s\S]*?\n```)/m))
     .map((block, index) => ({
       key: index,
       source: block,
     }));
   return (
-    <div>
+    <Container>
       {blocks.map((ks) => {
         return <ReactMarkdown
           key={ks.key}
           source={ks.source}
         />
       })}
-    </div>
+    </Container>
   )
 };
 

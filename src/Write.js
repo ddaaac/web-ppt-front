@@ -4,9 +4,11 @@ import "codemirror/theme/darcula.css";
 import CodeMirror from "codemirror";
 import "codemirror/mode/markdown/markdown";
 import CodeMirrorStyle from "./CodeMirrorStyle";
-
+import Presentation from "./Presentation";
+import {parse} from "./parse"
 
 const Container = styled.div`
+  position: relative;
   display: flex;
   width: 100%;
   height: 100%;
@@ -16,7 +18,7 @@ const TextArea = styled.textarea`
   display: none;
 `;
 
-const Write = ({onChange}) => {
+const Write = ({source, onChange}) => {
   const textArea = useRef(null);
   const [_, setCodeMirror] = useState();
 
@@ -47,6 +49,7 @@ const Write = ({onChange}) => {
     <Container>
       <CodeMirrorStyle/>
       <TextArea ref={textArea}/>
+      <Presentation source={parse(source)}/>
     </Container>
   );
 }

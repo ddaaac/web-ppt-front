@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import Markdown from "./Markdown";
+import {parse} from "./parse"
 
 const Container = styled.div`
   display: flex;
@@ -12,9 +13,10 @@ const Container = styled.div`
 `
 
 const Print = ({source}) => {
+  const contents = parse(source)
   return (
     <Container>
-      <Markdown source={source}/>
+      <Markdown contents={contents}/>
     </Container>
   )
 };
