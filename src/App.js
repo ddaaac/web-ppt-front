@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 import All from "./All";
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
         <Route path="/slide">
           <All/>
         </Route>
+        <Redirect to="/slide" />
       </Switch>
     </BrowserRouter>
   );
