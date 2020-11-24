@@ -6,13 +6,13 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/slide/:id">
+        <Route path="/ppt/:id">
           <All/>
         </Route>
-        <Route path="/slide">
+        <Route path="/ppt">
           <All/>
         </Route>
-        <Redirect to="/slide" />
+        <Redirect to="/ppt" />
       </Switch>
     </BrowserRouter>
   );

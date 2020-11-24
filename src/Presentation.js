@@ -169,9 +169,6 @@ const Presentation = ({source}) => {
     }
   }
 
-  console.log(index === 0)
-  console.log(showCursor)
-
   return (
     <>
       <FullScreenStyle/>
