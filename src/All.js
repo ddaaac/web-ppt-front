@@ -4,6 +4,7 @@ import Print from "./Print";
 import styled from "styled-components";
 import {useParams} from "react-router-dom";
 import {getSlide} from "./api";
+import {createTemplate} from "./parse";
 
 const HContainer = styled.div`
   display: flex;
@@ -16,12 +17,7 @@ const HContainer = styled.div`
 
 
 const All = () => {
-  const [markdown, setMarkDown] = useState(`---
-title:
-subtitle:
-author:
-presentedAt:
----`)
+  const [markdown, setMarkDown] = useState(createTemplate({title: "제목", author: "발표자", subtitle: "부제목"}))
   const [initial, setInitial] = useState(true)
   const {id} = useParams()
 

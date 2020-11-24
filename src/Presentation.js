@@ -167,6 +167,7 @@ const Presentation = ({source}) => {
       const id = await createSlide(markdown)
       history.push(`${id}`);
     }
+    alert("저장되었습니다. Url을 복사해서 사용하면 됩니다.")
   }
 
   return (
