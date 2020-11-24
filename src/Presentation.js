@@ -1,11 +1,12 @@
 import React, {useEffect, useMemo, useRef, useState} from "react";
-import styled, {createGlobalStyle} from "styled-components";
+import styled, {css} from "styled-components";
 import fscreen from "fscreen";
 import Markdown from "./Markdown";
 import {FullScreenStyle} from "./FullScreenStyle";
 import {useParams, useHistory} from "react-router-dom";
 import {createSlide, updateSlide} from "./api";
 import {parse} from "./parse"
+import github from "./github";
 
 const Keys = {
   ARROW_RIGHT: "ArrowRight",
@@ -34,57 +35,13 @@ export const FullScreenBlock = styled.div`
     background-color: #fff;
     display: none;
   }
-  
-  > div#themed {
-    position: relative;
-    height: 100%;
-    overflow-y: scroll;
-    box-sizing: border-box;
+
+
+    ${github}
     padding: 7%;
     font-size: 1.75rem;
-    display: flex;
-    flex-direction: column;
     
-    @media (max-width: 600px) {
-      font-size: 1rem;
-    }
-    
-    p.images {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      flex: 1;
-      width: 100%;
-      
-      .image {
-        display: block;
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-        height: 100%;
-        flex: 1;
-      }
-    }
-    
-    iframe.youtube {
-      flex: 1;
-      
-      &:only-child {
-        position: absolute;
-        left: 0;
-        top: 5%;
-        width: 100%;
-        height: 90%;
-        
-        @media (max-width: 600px) {
-          top: 15%;
-          height: 70%;
-        }
-      }
-    }
-    
-    ${({isFirstPage}) => isFirstPage && createGlobalStyle`
+    ${({isFirstPage}) => isFirstPage && css`
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -109,7 +66,6 @@ export const FullScreenBlock = styled.div`
         margin-top: 1em !important; 
       }
     `}
-  }
 `;
 
 
@@ -205,7 +161,6 @@ const Presentation = ({source}) => {
   };
 
   const save = async (markdown) => {
-    console.log(id, markdown)
     if (id) {
       updateSlide(id, markdown)
     } else {
@@ -214,10 +169,14 @@ const Presentation = ({source}) => {
     }
   }
 
+  console.log(index === 0)
+  console.log(showCursor)
+
   return (
     <>
       <FullScreenStyle/>
       <FullScreenBlock
+        id={"them"}
         ref={slideReference}
         tabIndex={-1}
         showCursor={showCursor}
@@ -225,7 +184,7 @@ const Presentation = ({source}) => {
         onMouseMove={() => setShowCursor(true)}
         isFirstPage={index === 0}
       >
-        <Markdown contents={{content: contents[index]}}/>
+        <Markdown contents={{content: contents[index]}} mode="Presentation"/>
       </FullScreenBlock>
       <FullScreenButton onClick={toggleFullScreen}/>
       <SaveButton onClick={() => save(source)}/>

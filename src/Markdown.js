@@ -4,10 +4,9 @@ import styled from "styled-components";
 
 const Container = styled.div`
   justify-content: center;
-  padding: 40px;
 `
 
-const Markdown = ({contents}) => {
+const Markdown = ({contents, mode = "Write"}) => {
   if (!contents || !("content" in contents) || !contents.content) {
     return null
   }
@@ -18,7 +17,7 @@ const Markdown = ({contents}) => {
       source: block,
     }));
   return (
-    <Container>
+    <Container mode={mode}>
       {blocks.map((ks) => {
         return <ReactMarkdown
           key={ks.key}
